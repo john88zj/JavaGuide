@@ -536,13 +536,13 @@ private static class CharacterCache {
 **两种浮点数类型的包装类 Float,Double 并没有实现常量池技术。**
 
 ```java
-		Integer i1 = 33;
+		Integer i1 = 33; //通过IntegerCache.cache[]获取
 		Integer i2 = 33;
 		System.out.println(i1 == i2);// 输出 true
-		Integer i11 = 333;
+		Integer i11 = 333; //通过装箱方法获取 等同于 new Integer(333);
 		Integer i22 = 333;
 		System.out.println(i11 == i22);// 输出 false
-		Double i3 = 1.2;
+		Double i3 = 1.2; //没有 DoubleCache，通过装箱方法获取 等同于 new Double(1.2)
 		Double i4 = 1.2;
 		System.out.println(i3 == i4);// 输出 false
 ```
