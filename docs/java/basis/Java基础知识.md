@@ -904,7 +904,6 @@ public void f5(int a) {
 > 解释型语言：执行速度慢、效率低；依靠解释器、跨平台性好 （JAVA、 Basic、javascript、HTML）。 
 > 。
 
-个人观点：面向对象和面向过程的性能没有
 
 #### 2.1.2. 构造器 Constructor 是否可被 override?
 
