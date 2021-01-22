@@ -582,11 +582,11 @@ private static class CharacterCache {
   Integer i5 = new Integer(40);
   Integer i6 = new Integer(0);
 
-  System.out.println("i1=i2   " + (i1 == i2));
-  System.out.println("i1=i2+i3   " + (i1 == i2 + i3));
-  System.out.println("i1=i4   " + (i1 == i4));
-  System.out.println("i4=i5   " + (i4 == i5));
-  System.out.println("i4=i5+i6   " + (i4 == i5 + i6));
+  System.out.println("i1=i2   " + (i1 == i2));// true 
+  System.out.println("i1=i2+i3   " + (i1 == i2 + i3)); // true
+  System.out.println("i1=i4   " + (i1 == i4)); //false
+  System.out.println("i4=i5   " + (i4 == i5)); // false
+  System.out.println("i4=i5+i6   " + (i4 == i5 + i6)); //
   System.out.println("40=i5+i6   " + (40 == i5 + i6));
 ```
 
@@ -603,7 +603,7 @@ i4=i5+i6   true
 
 解释：
 
-语句 i4 == i5 + i6，因为+这个操作符不适用于 Integer 对象，首先 i5 和 i6 进行自动拆箱操作，进行数值相加，即 i4 == 40。然后 Integer 对象无法与数值进行直接比较，所以 i4 自动拆箱转为 int 值 40，最终这条语句转为 40 == 40 进行数值比较。
+语句 i4 == i5 + i6，因为+这个操作符不适用于 Integer 对象，首先 i5 和 i6 进行自动拆箱操作，使用Integger.intValue()返回 40 和0，进行数值相加，即 i4 == 40。然后 Integer 对象无法与数值进行直接比较，所以 i4 自动拆箱转为 int 值 40，最终这条语句转为 40 == 40 进行数值比较。
 
 ### 1.4. 方法（函数）
 
@@ -897,9 +897,14 @@ public void f5(int a) {
 
 参见 issue : [面向过程 ：面向过程性能比面向对象高？？](https://github.com/Snailclimb/JavaGuide/issues/431)
 
-> 这个并不是根本原因，面向过程也需要分配内存，计算内存偏移量，Java 性能差的主要原因并不是因为它是面向对象语言，而是 Java 是半编译语言，最终的执行代码并不是可以直接被 CPU 执行的二进制机械码。
+> 这个并不是根本原因，面向过程也需要分配内存，计算内存偏移量，Java 性能差的主要原因并不是因为它是面向对象语言，而是 Java 是半解释语言，因为做到可移植性，将代码生成.class 二进制文件，这个文件并不能被机器直接执行，需要通过JVM翻译成机器码。在这过程中需要JVM参与，所以在执行过程中没有直接编译成机器码的快。
 >
-> 而面向过程语言大多都是直接编译成机械码在电脑上执行，并且其它一些面向过程的脚本语言性能也并不一定比 Java 好。
+> 应该从编译型语言和解释性语言分析性能问题。
+> 编译型语言：执行速度快、效率高；依靠编译器、跨平台性差些 （C、C++、Delphi）。 
+> 解释型语言：执行速度慢、效率低；依靠解释器、跨平台性好 （JAVA、 Basic、javascript、HTML）。 
+> 。
+
+个人观点：面向对象和面向过程的性能没有
 
 #### 2.1.2. 构造器 Constructor 是否可被 override?
 
